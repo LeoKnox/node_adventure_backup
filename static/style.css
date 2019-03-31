@@ -13,6 +13,12 @@ h2 {
     height: 40%;
 }
 
+#chitchat {
+    position: absolute;
+    bottom: 50%;
+    left: 5%;
+}
+
 .attr {
     border: 2px solid black;
 }
@@ -40,4 +46,17 @@ button {
 
 #stats {
     display: inline-block;
+}
+
+#talk {
+    width: 50em;
+}
+
+li {
+    list-style-type: none;
+}
+
+#list {
+    overflow: auto;
+    height: 80%;
 }

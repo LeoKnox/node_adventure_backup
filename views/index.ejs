@@ -2,6 +2,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
+        var x="<%= user %>";
         $(function () {
             const socket = io();
             $('form').submit(function(e) {
@@ -11,13 +12,10 @@
                 return false;
             })
             socket.on('chat message', function(msg){
-                $('#messages').append($('<p>').text(msg))
+                var test = <% user %>
+                $('#messages').prepend($('<li>').text(x + ": " + msg))
             })
         })
-        /*const socket = io();
-        socket.on('disconnect', function() {
-            console.log('User disconnected')
-        })*/
     </script>
 </head>
 <body>
@@ -25,9 +23,11 @@
 
     <h2>The Adventure of ... YOU!</h2>
     <div id="chat">
-    <div id="messages">
+    <div id="list">
+        <ul id="messages">
+        </ul>
     </div>
-        <form action="send">
+        <form id="chitchat" action="send">
             <input id="talk" autocomplete="off" /><button>Send</button>
         </form>
     </div>
