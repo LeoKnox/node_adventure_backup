@@ -1,44 +1,72 @@
-<link href="/style.css" rel="stylesheet" type="text/css">
+<head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        $(function () {
+            const socket = io();
+            $('form').submit(function(e) {
+                e.preventDefault(); // prevents page reloading
+                socket.emit('chat message', $('#talk').val())
+                $('#talk').val('');
+                return false;
+            })
+            socket.on('chat message', function(msg){
+                $('#messages').append($('<p>').text(msg))
+            })
+        })
+        /*const socket = io();
+        socket.on('disconnect', function() {
+            console.log('User disconnected')
+        })*/
+    </script>
+</head>
+<body>
+    <link href="/style.css" rel="stylesheet" type="text/css">
 
-<h2>The Adventure of ... YOU!</h2>
-<div id="chat">
-
-</div>
-<div id="stats">
-    <h3>Not So Brave |</h3>
-    <table>
-        <th>
-            <tr>
-                <td>Atk:</td>
-                <td class="attr">10</td>
-            </tr>
-            <tr>
-                <td>Def:</td>
-                <td class="attr">10</td>
-            </tr>
-            <tr>
-                <td>HP:</td>
-                <td class="attr">10</td>
-            </tr>
-            <tr>
-                <td>Mgc:</td>
-                <td class="attr">10</td>
-            </tr>
-        </th>
-    </table>
-    <form action="/">
-        <input type="radio" name="action" value="melee">Melee<br>
-        <input type="radio" name="action" value="magic">Magic<br>
-        <input type="radio" name="action" value="block">Block<br>
-        <input type="radio" name="action" value="panic">Panic<br>
-        <button>Take Turn</button>
-    </form>
-</div>
-<div id="monster">
-    <h3>Evil Elmo</h3>
-    <p>HP: 300</p>
-    <svg width="10%" height="20%">
-        <line x1="15" y1="0" x2="15" y2="100" style="stroke:rgb(255,0,0);
-            stroke-width:15" />
-    </svg>
-</div>
+    <h2>The Adventure of ... YOU!</h2>
+    <div id="chat">
+    <div id="messages">
+    </div>
+        <form action="send">
+            <input id="talk" autocomplete="off" /><button>Send</button>
+        </form>
+    </div>
+    <div id="stats">
+        <h3>Not So Brave |</h3>
+        <table>
+            <th>
+                <tr>
+                    <td>Atk:</td>
+                    <td class="attr">10</td>
+                </tr>
+                <tr>
+                    <td>Def:</td>
+                    <td class="attr">10</td>
+                </tr>
+                <tr>
+                    <td>HP:</td>
+                    <td class="attr">10</td>
+                </tr>
+                <tr>
+                    <td>Mgc:</td>
+                    <td class="attr">10</td>
+                </tr>
+            </th>
+        </table>
+        <form action="/">
+            <input type="radio" name="action" value="melee">Melee<br>
+            <input type="radio" name="action" value="magic">Magic<br>
+            <input type="radio" name="action" value="block">Block<br>
+            <input type="radio" name="action" value="panic">Panic<br>
+            <button>Take Turn</button>
+        </form>
+    </div>
+    <div id="monster">
+        <h3>Evil Elmo</h3>
+        <p>HP: 300</p>
+        <svg width="10%" height="20%">
+            <line x1="15" y1="0" x2="15" y2="200" style="stroke:rgb(255,0,0);
+                stroke-width:55" />
+        </svg>
+    </div>
+</body>
