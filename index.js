@@ -7,6 +7,7 @@ const io = require('socket.io')(http)
 
 const path = require('path')
 
+app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static(path.join(__dirname, './static')))
 app.set('views', path.join(__dirname, './views'))
 app.set('view engine', 'ejs')
@@ -19,11 +20,18 @@ io.on('connection', function(socket) {
 })
 
 app.get('/', (req, res) => {
+    res.render('login')
+    //res.redirect('/main')
+})
+
+app.post('/login', (req, res) => {
+    console.log(req.body)
+    req.session.user = req.body.adventurer
     res.redirect('/main')
 })
 
 app.get('/main', (req, res) => {
-    req.session.user = 'Aelien'
+    //req.session.user = 'Aelien'
     res.render('index', {user: req.session.user})
 })
 

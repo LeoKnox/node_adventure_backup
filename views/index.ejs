@@ -12,7 +12,6 @@
                 return false;
             })
             socket.on('chat message', function(msg){
-                var test = <% user %>
                 $('#messages').prepend($('<li>').text(x + ": " + msg))
             })
         })
