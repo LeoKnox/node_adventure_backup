@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
+const Adventurer = require('./adventurer.js')
 
 const path = require('path')
 
@@ -25,7 +26,8 @@ app.get('/', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-    console.log(req.body)
+    let adv = new Adventurer(req.body.adventurer)
+    console.log(adv.melee())
     req.session.user = req.body.adventurer
     res.redirect('/main')
 })

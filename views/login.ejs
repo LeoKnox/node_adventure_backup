@@ -1,6 +1,25 @@
 <h2>Adventure Begins Here!</h2>
 <form method='post' action='/login'>
-    <p>Enter Adventurer Name:</p>
-    <input type="text" name="adventurer" />
+            <p>Enter Adventurer Name:</p>
+            <input type="text" name="adventurer" /><br>
+    <table>
+        <tr>
+            <td><label>Attack</label></td>
+            <td><input type="number" name="atk" /></td>
+        </tr>
+        <tr>
+                <td><label>Defense</label></td>
+                <td><input type="number" name="def" /></td>
+        </tr>
+        <tr>
+                <td><label>HitPoints</label></td>
+                <td><input type="number" name="hp" /></td>
+        </tr>
+        <tr>
+                <td><label>Magic</label></td>
+                <td><input type="number" name="mgc" /></td>
+        </tr>
+    </table>
+    <br>
     <button>Begin</button>
 </form>
