@@ -2,16 +2,17 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-        var x="<%= user %>";
+        var x="<%= user.adventurer %>";
         $(function () {
             const socket = io();
-            $('form').submit(function(e) {
+            $('#chitchat').submit(function(e) {
                 e.preventDefault(); // prevents page reloading
                 socket.emit('chat message', $('#talk').val())
                 $('#talk').val('');
                 return false;
             })
             socket.on('chat message', function(msg){
+                console.log(x.adventurer);
                 $('#messages').prepend($('<li>').text(x + ": " + msg))
             })
         })
@@ -27,7 +28,7 @@
         </ul>
     </div>
         <form id="chitchat" action="send">
-            <input id="talk" autocomplete="off" /><button>Send</button>
+            <input id="talk" autocomplete="off" /><button id="chatbutton">Chat</button>
         </form>
     </div>
     <div id="stats">
@@ -52,7 +53,7 @@
                 </tr>
             </th>
         </table>
-        <form action="/">
+        <form action="new" method="POST">
             <input type="radio" name="action" value="melee">Melee<br>
             <input type="radio" name="action" value="magic">Magic<br>
             <input type="radio" name="action" value="block">Block<br>

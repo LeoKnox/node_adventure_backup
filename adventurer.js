@@ -1,6 +1,10 @@
 class Adventurer {
     constructor(advent) {
-        this.name=advent
+        this.adventurer=advent.adventurer
+        this.atk=advent.atk
+        this.def=advent.def
+        this.hp=advent.hp
+        this.mgc=advent.mgc
     }
 
     melee() {

@@ -50,6 +50,7 @@ button {
 
 #talk {
     width: 50em;
+    height: 33px;
 }
 
 li {
@@ -59,4 +60,8 @@ li {
 #list {
     overflow: auto;
     height: 80%;
+}
+
+#chatbutton {
+    border-radius: 0px 10px 10px 0px;
 }

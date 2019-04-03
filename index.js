@@ -26,9 +26,15 @@ app.get('/', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-    let adv = new Adventurer(req.body.adventurer)
-    console.log(adv.melee())
-    req.session.user = req.body.adventurer
+    //let adv = new Adventurer(req.body)
+    //console.log(adv)
+    //req.session.user = adv
+    req.session.user = req.body
+    res.redirect('/main')
+})
+
+app.post('/new', (req, res) => {
+    console.log(req.body)
     res.redirect('/main')
 })
 
