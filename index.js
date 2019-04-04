@@ -21,22 +21,24 @@ io.on('connection', function(socket) {
 })
 
 app.get('/', (req, res) => {
-    res.render('login')
-    //res.redirect('/main')
+    let stats = { atk: 16, def: 12, hp: 40, mgc: 8 }
+    res.render('login', stats)
 })
 
 app.post('/login', (req, res) => {
     req.session.user = req.body
+    console.log(req.body)
     res.redirect('/main')
 })
 
 app.post('/new', (req, res) => {
     let x = new Adventurer(req.session.user)
-    console.log(x.melee())
+    console.log(x[req.body.action]())
     res.redirect('/main')
 })
 
 app.get('/main', (req, res) => {
+    console.log(req.session.user)
     res.render('index', {user: req.session.user})
 })
 
