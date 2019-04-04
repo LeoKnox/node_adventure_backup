@@ -8,7 +8,7 @@ class Adventurer {
     }
 
     melee() {
-        return(this.name + '! Think of the experience!')
+        return(this.adventurer + '! Think of the experience!')
     }
 
     block() {

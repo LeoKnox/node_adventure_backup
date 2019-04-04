@@ -23,50 +23,52 @@
 
     <h2>The Adventure of ... YOU!</h2>
     <div id="chat">
-    <div id="list">
-        <ul id="messages">
-        </ul>
-    </div>
+        <div id="list">
+            <ul id="messages">
+            </ul>
+        </div>
         <form id="chitchat" action="send">
             <input id="talk" autocomplete="off" /><button id="chatbutton">Chat</button>
         </form>
     </div>
-    <div id="stats">
-        <h3>Not So Brave |</h3>
-        <table>
-            <th>
-                <tr>
-                    <td>Atk:</td>
-                    <td class="attr">10</td>
-                </tr>
-                <tr>
-                    <td>Def:</td>
-                    <td class="attr">10</td>
-                </tr>
-                <tr>
-                    <td>HP:</td>
-                    <td class="attr">10</td>
-                </tr>
-                <tr>
-                    <td>Mgc:</td>
-                    <td class="attr">10</td>
-                </tr>
-            </th>
-        </table>
-        <form action="new" method="POST">
-            <input type="radio" name="action" value="melee">Melee<br>
-            <input type="radio" name="action" value="magic">Magic<br>
-            <input type="radio" name="action" value="block">Block<br>
-            <input type="radio" name="action" value="panic">Panic<br>
-            <button>Take Turn</button>
-        </form>
-    </div>
-    <div id="monster">
-        <h3>Evil Elmo</h3>
-        <p>HP: 300</p>
-        <svg width="10%" height="20%">
-            <line x1="15" y1="0" x2="15" y2="200" style="stroke:rgb(255,0,0);
-                stroke-width:55" />
-        </svg>
+    <div id="characters">
+        <div id="stats">
+            <h3>Not So Brave |</h3>
+            <table>
+                <th>
+                    <tr>
+                        <td>Atk:</td>
+                        <td class="attr">10</td>
+                    </tr>
+                    <tr>
+                        <td>Def:</td>
+                        <td class="attr">10</td>
+                    </tr>
+                    <tr>
+                        <td>HP:</td>
+                        <td class="attr">10</td>
+                    </tr>
+                    <tr>
+                        <td>Mgc:</td>
+                        <td class="attr">10</td>
+                    </tr>
+                </th>
+            </table>
+            <form action="new" method="POST">
+                <input type="radio" name="action" value="melee">Melee<br>
+                <input type="radio" name="action" value="magic">Magic<br>
+                <input type="radio" name="action" value="block">Block<br>
+                <input type="radio" name="action" value="panic">Panic<br>
+                <button>Take Turn</button>
+            </form>
+        </div>
+        <div id="monster">
+            <h3>Evil Elmo</h3>
+            <p>HP: 300</p>
+            <svg width="10%" height="20%">
+                <line x1="15" y1="0" x2="15" y2="200" style="stroke:rgb(255,0,0);
+                    stroke-width:55" />
+            </svg>
+        </div>
     </div>
 </body>

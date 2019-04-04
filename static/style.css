@@ -10,12 +10,14 @@ h2 {
     border: 3px solid gold;
     border-radius: 12px;
     width: 60%;
-    height: 40%;
+    height: 80%;
+    display: inline-block;
+    vertical-align: top;
 }
 
 #chitchat {
     position: absolute;
-    bottom: 50%;
+    bottom: 15%;
     left: 5%;
 }
 
@@ -34,7 +36,7 @@ table {
 button {
     margin-top: 20px;
     background-color: #555555;
-    color: yellow;
+    color: gold;
     border-radius: 8px;
     padding: 10px;
 }
@@ -44,7 +46,7 @@ button {
     vertical-align: top;
 }
 
-#stats {
+#stats, #characters {
     display: inline-block;
 }
 
@@ -64,4 +66,8 @@ li {
 
 #chatbutton {
     border-radius: 0px 10px 10px 0px;
+}
+
+#login_name {
+    margin: 0px 0px 15px 25px;
 }
