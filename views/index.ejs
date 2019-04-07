@@ -19,9 +19,10 @@
     </script>
 </head>
 <body>
-    <link href="/style.css" rel="stylesheet" type="text/css">
+    <link href="/grid.css" rel="stylesheet" type="text/css">
 
     <h2>The Adventure of ... YOU!</h2>
+    <div id="grid_css">
     <div id="chat">
         <div id="list">
             <ul id="messages">
@@ -33,7 +34,7 @@
     </div>
     <div id="characters">
         <div id="stats">
-            <h3>Not So Brave |</h3>
+            <h3><%= user.adventurer %> vs</h3>
             <table>
                 <th>
                     <tr>
@@ -70,5 +71,6 @@
                     stroke-width:55" />
             </svg>
         </div>
+    </div>
     </div>
 </body>
