@@ -16,7 +16,6 @@ app.use(session({secret: "be very quiet"}))
 
 io.on('connection', function(socket) {
     socket.on('chat message', function(msg) {
-        console.log(msg)
         io.emit('chat message', msg)
     })
 })
@@ -45,8 +44,4 @@ app.get('/main', (req, res) => {
 
 http.listen(3000, function() {
     console.log('listening on port 3000')
-})
-
-app.listen(8000, function() {
-    console.log('Listening on port 8000')
 })

@@ -63,5 +63,5 @@ h2 {
 button {
     background-color: silver;
     color: whitesmoke;
-    border-radius: 1em;
+    border-radius:  0 1em 1em 0;
 }
