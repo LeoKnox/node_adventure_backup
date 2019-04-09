@@ -7,13 +7,15 @@
             const socket = io();
             $('#chitchat').submit(function(e) {
                 e.preventDefault(); // prevents page reloading
-                socket.emit('chat message', $('#talk').val())
+                var xmessage = {message: $('#talk').val(), sender: x}
+                socket.emit('chat message', xmessage)
+                //socket.emit('chat message', $('#talk').val())
                 $('#talk').val('');
                 return false;
             })
             socket.on('chat message', function(msg){
                 console.log(x.adventurer);
-                $('#messages').prepend($('<li>').text(x + ": " + msg))
+                $('#messages').prepend($('<li>').text(msg.sender + ": " + msg.message))
             })
         })
     </script>
