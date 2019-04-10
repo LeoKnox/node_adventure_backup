@@ -5,6 +5,11 @@
         var x="<%= user.adventurer %>";
         $(function () {
             const socket = io();
+            $('#taketurn').submit(function(t) {
+                t.preventDefault();
+                socket.emit('take turn', t)
+                $('#')
+            })
             $('#chitchat').submit(function(e) {
                 e.preventDefault(); // prevents page reloading
                 var xmessage = {message: $('#talk').val(), sender: x}
@@ -59,7 +64,8 @@
                     </tr>
                 </th>
             </table>
-            <form action="new" method="POST">
+            <!--<form action="new" method="POST">-->
+            <form id="taketurn" method="send">
                 <input type="radio" name="action" value="melee">Melee<br>
                 <input type="radio" name="action" value="magic">Magic<br>
                 <input type="radio" name="action" value="block">Block<br>
