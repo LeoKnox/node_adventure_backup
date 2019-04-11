@@ -24,7 +24,18 @@ io.on('connection', function(socket) {
     socket.on('changeclass', function(newclass) {
         console.log(newclass)
         let newstats = {name: "", atk:"99", def:"99", hp:"99", mgc:"99", classes:"99"}
-        io.emit('changeclass', newstats)
+        MongoClient.connect(url, function(err, db){
+            if (err) {
+                console.log(err)
+            } else {
+                var dbo = db.db("node_adventure")
+                dbo.collection("classes").find({classes: newclass}).toArray(function(err, wstats) {
+                    io.emit('changeclass', wstats[0])
+                    //res.render('login', {char:stats})
+                })
+            }
+        //io.emit('changeclass', newstats)
+        })
     })
 })
 
