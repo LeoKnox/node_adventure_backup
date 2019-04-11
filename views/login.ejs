@@ -1,27 +1,36 @@
+<head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+    </script>
+</head>
+
 <link href="/grid.css" rel="stylesheet" type="text/css">
 <h2>Adventure Begins Here!</h2>
 <form method='post' action='/login'>
             <p>Enter Adventurer Name:</p>
             <input type="text" name="adventurer" id="login_name" /><br>
             <select name="class">
-                        <option><%= classes %></option>
+                    <% for (var c in char) { %>
+                        <option value="<%= char[c].classes %>"><%= char[c].classes %></option>
+                    <% } %>
             </select>
     <table>
         <tr>
                 <td><label>Attack</label></td>
-                <td><input type="number" name="atk" value="<%= atk %>" /></td>
+                <td><input type="number" name="atk" value="<%= char[0].atk %>" /></td>
         </tr>
         <tr>
                 <td><label>Defense</label></td>
-                <td><input type="number" name="def" value="<%= def %>" /></td>
+                <td><input type="number" name="def" value="<%= char[0].def %>" /></td>
         </tr>
         <tr>
                 <td><label>HitPoints</label></td>
-                <td><input type="number" name="hp" value="<%= hp %>" /></td>
+                <td><input type="number" name="hp" value="<%= char[0].hp %>" /></td>
         </tr>
         <tr>
                 <td><label>Magic</label></td>
-                <td><input type="number" name="mgc" value="<%= mgc %>" /></td>
+                <td><input type="number" name="mgc" value="<%= char[0].mgc %>" /></td>
         </tr>
     </table>
     <br>

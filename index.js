@@ -5,6 +5,7 @@ const session = require('express-session')
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
 const Adventurer = require('./adventurer.js')
+const Dungeon = require('./dungeon.js')
 const MongoClient = require('mongodb').MongoClient
 const url = "mongodb://localhost:27017/"
 const path = require('path')
@@ -28,7 +29,7 @@ app.get('/', (req, res) => {
         } else {
             var dbo = db.db("node_adventure")
             dbo.collection("classes").find({}).toArray(function(err, stats) {
-                res.render('login', stats[0])
+                res.render('login', {char:stats})
             })
         }
     })
