@@ -22,16 +22,12 @@ io.on('connection', function(socket) {
 })
 
 app.get('/', (req, res) => {
-    /* var stats = { atk: 16, def: 12, hp: 40, mgc: 8 }
-    console.log(stats)
-    res.render('login', stats)*/
     MongoClient.connect(url, function(err, db){
         if (err) {
             console.log(err)
         } else {
             var dbo = db.db("node_adventure")
             dbo.collection("classes").find({}).toArray(function(err, stats) {
-                console.log('s:'+stats)
                 res.render('login', stats[0])
             })
         }
