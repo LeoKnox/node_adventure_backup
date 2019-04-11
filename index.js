@@ -20,6 +20,12 @@ io.on('connection', function(socket) {
     socket.on('chat message', function(msg) {
         io.emit('chat message', msg)
     })
+
+    socket.on('changeclass', function(newclass) {
+        console.log(newclass)
+        let newstats = {name: "", atk:"99", def:"99", hp:"99", mgc:"99", classes:"99"}
+        io.emit('changeclass', newstats)
+    })
 })
 
 app.get('/', (req, res) => {
