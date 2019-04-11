@@ -29,12 +29,15 @@ io.on('connection', function(socket) {
                 console.log(err)
             } else {
                 var dbo = db.db("node_adventure")
-                dbo.collection("classes").find({classes: newclass}).toArray(function(err, wstats) {
-                    io.emit('changeclass', wstats[0])
-                    //res.render('login', {char:stats})
-                })
+                dbo.collection("classes").findOne({classes: newclass})
+                    .then(newstats => {
+                        console.log(newstats)
+                        io.emit('changeclass', newstats)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
             }
-        //io.emit('changeclass', newstats)
         })
     })
 })
