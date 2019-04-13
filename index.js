@@ -68,8 +68,7 @@ app.post('/new', (req, res) => {
 })
 
 app.get('/main', (req, res) => {
-    console.log(req.session.user)
-    res.render('index', {user: req.session.user})
+    res.render('index', {user: req.session.user, width: 600, height: 500})
 })
 
 http.listen(3000, function() {

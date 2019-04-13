@@ -65,3 +65,7 @@ button {
     color: whitesmoke;
     border-radius:  0 1em 1em 0;
 }
+
+#room {
+    margin: 150px 300px;
+}
