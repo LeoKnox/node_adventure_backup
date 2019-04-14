@@ -31,9 +31,11 @@
     <div id="grid_css">
     <div id="chat">
     <div id="map">
-        <svg id="room">
-            <rect id="drawing" width = "<%= width %>" height="<%= height %>" 
-                style="fill:black;stroke-width:4; stroke:gray" />
+        <svg id="room" style="margin:20px">
+            <rect id="drawing" x="8" y="8" width = "<%= dungeon.width %>" height="<%= dungeon.height %>"
+                stroke="gray" stroke-width="16"
+                style="fill:black;"
+                />
         </svg>
     </div>
         <div id="list">

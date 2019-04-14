@@ -22,7 +22,6 @@ io.on('connection', function(socket) {
     })
 
     socket.on('changeclass', function(newclass) {
-        console.log(newclass)
         let newstats = {name: "", atk:"99", def:"99", hp:"99", mgc:"99", classes:"99"}
         MongoClient.connect(url, function(err, db){
             if (err) {
@@ -31,7 +30,6 @@ io.on('connection', function(socket) {
                 var dbo = db.db("node_adventure")
                 dbo.collection("classes").findOne({classes: newclass})
                     .then(newstats => {
-                        console.log(newstats)
                         io.emit('changeclass', newstats)
                     })
                     .catch(err => {
@@ -57,7 +55,7 @@ app.get('/', (req, res) => {
 
 app.post('/login', (req, res) => {
     req.session.user = req.body
-    console.log(req.body)
+    console.log(req.body.name)
     res.redirect('/main')
 })
 
@@ -68,7 +66,21 @@ app.post('/new', (req, res) => {
 })
 
 app.get('/main', (req, res) => {
-    res.render('index', {user: req.session.user, width: 600, height: 500})
+    MongoClient.connect(url, function(err, db){
+        if (err) {
+            console.log(err)
+        } else {
+            var dbo = db.db("node_adventure")
+            dbo.collection("dungeon").find({}).toArray(function(err, info) {
+                let dungeon = {height: 200, width: 240}
+                console.log(info[0].width)
+                dungeon = {height: info[0].height*50, width: info[0].width*50}
+                res.render('index', {user: req.session.user, dungeon})
+            })
+        }
+    })
+    //let dungeon = {height: 200, width: 440}
+    //res.render('index', {user: req.session.user, dungeon})
 })
 
 http.listen(3000, function() {
