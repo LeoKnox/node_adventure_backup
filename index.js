@@ -74,8 +74,12 @@ app.get('/main', (req, res) => {
                 dbo.collection("dungeon").findOne({room: "Begin"})
                     .then(params => {
                         console.log(params)
+                        let marginx = (898-params.width*40)/2
+                        let marginy = (338-params.height*40)/2
                         let dungeon = {height: params.height*40,
-                            width: params.width*40}
+                            width: params.width*40,
+                            marginx: marginx,
+                            marginy: marginy}
                         res.render('index', {user: req.session.user, dungeon})
                     })
                     .catch(err => {
