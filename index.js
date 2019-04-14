@@ -71,13 +71,13 @@ app.get('/main', (req, res) => {
                 console.log(err)
             } else {
                 var dbo = db.db("node_adventure")
-                dbo.collection("dungeon").findOne({room: "Begin"})
+                dbo.collection("dungeon").findOne({name: "Begin"})
                     .then(params => {
-                        console.log(params)
                         let wallx = (898-params.width*40)/2
                         let wally = (338-params.height*40)/2
-                        let doorx = wallx+params.width*40-7
-                        let doory = wally+params.height*40-36
+                        let doorx = wallx+params.door[0].x*40-7
+                        let doory = wally+params.door[0].y*40-12
+                        console.log(params.door)
                         let dungeon = {
                             height: params.height*40,
                             width: params.width*40,
