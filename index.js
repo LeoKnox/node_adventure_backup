@@ -67,17 +67,21 @@ app.post('/new', (req, res) => {
 
 app.get('/main', (req, res) => {
     MongoClient.connect(url, function(err, db){
-        if (err) {
-            console.log(err)
-        } else {
-            var dbo = db.db("node_adventure")
-            dbo.collection("dungeon").find({}).toArray(function(err, info) {
-                let dungeon = {height: 200, width: 240}
-                console.log(info[0].width)
-                dungeon = {height: info[0].height*50, width: info[0].width*50}
-                res.render('index', {user: req.session.user, dungeon})
-            })
-        }
+            if (err) {
+                console.log(err)
+            } else {
+                var dbo = db.db("node_adventure")
+                dbo.collection("dungeon").findOne({room: "Begin"})
+                    .then(params => {
+                        console.log(params)
+                        let dungeon = {height: params.height*40,
+                            width: params.width*40}
+                        res.render('index', {user: req.session.user, dungeon})
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
     })
     //let dungeon = {height: 200, width: 440}
     //res.render('index', {user: req.session.user, dungeon})
