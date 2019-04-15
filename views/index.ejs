@@ -21,6 +21,9 @@
                 console.log(x.adventurer);
                 $('#messages').prepend($('<li>').text(msg.sender + ": " + msg.message))
             })
+            socket.on('move action', function(msg) {
+                $('#messages').prepend($('<li>').text(msg.message))
+            })
         })
     </script>
 </head>
@@ -37,9 +40,11 @@
                 stroke="gray" stroke-width="16"
                 style="fill:black;"
             />
-            <rect id="door" x="<%= dungeon.doorx %>" y="<%= dungeon.doory %>"
-                width="12" height="24" style="fill:#555555"
-            />
+            <% for (var j in dungeon.params.door) { %>
+                <rect id="door" x="<%= dungeon.params.door[j].x %>" y="<%= dungeon.params.door[j].y %>"
+                    width="12" height="24" style="fill:#555555"
+                />
+            <% } %>
         </svg>
     </div>
         <div id="list">
@@ -79,6 +84,10 @@
                 <input type="radio" name="action" value="magic">Magic<br>
                 <input type="radio" name="action" value="block">Block<br>
                 <input type="radio" name="action" value="panic">Panic<br>
+                <% for (var k in dungeon.params.door) { %>
+                    <input type="radio" name="action" value="<%= dungeon.params.door[k].to %>">
+                    Move to <%= dungeon.params.door[k].to %><br>
+                <% } %>
                 <button>Take Turn</button>
             </form>
         </div>
