@@ -7,8 +7,11 @@
             const socket = io();
             $('#taketurn').submit(function(t) {
                 t.preventDefault();
-                socket.emit('take turn', t)
-                $('#')
+                console.log('a:')
+                var charaction = $('input[name="action"]:checked').val()
+                socket.emit('take turn', {action: charaction})
+                $('.action').val('')
+                return false
             })
             $('#chitchat').submit(function(e) {
                 e.preventDefault(); // prevents page reloading
