@@ -24,6 +24,10 @@ io.on('connection', function(socket) {
     socket.on('take turn', function(newaction) {
         console.log(newaction)
         let msg = {message: "You have moved in a circle"}
+        if (newaction.action[0] == 'm') {
+            console.log('rollin rollin rollin keep them doggies rollin')
+            console.log(newaction.action.slice(1))
+        }
         io.emit('move action', msg)
     })
 
