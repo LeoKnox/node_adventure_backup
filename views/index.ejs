@@ -9,7 +9,7 @@
                 t.preventDefault();
                 var charaction = $('input[name="action"]:checked').val()
                 socket.emit('take turn', {action: charaction})
-                $('.action').val('')
+                $('input[name="action"]').prop('checked', false)
                 return false
             })
             $('#chitchat').submit(function(e) {

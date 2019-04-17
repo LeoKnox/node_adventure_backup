@@ -26,7 +26,23 @@ io.on('connection', function(socket) {
         let msg = {message: "You have moved in a circle"}
         if (newaction.action[0] == 'm') {
             console.log('rollin rollin rollin keep them doggies rollin')
-            console.log(newaction.action.slice(1))
+            newaction = newaction.action.slice(1)
+            MongoClient.connect(url, function(err, db){
+                if (err) {
+                    console.log(err)
+                } else {
+                    var dbo = db.db("node_adventure")
+                    dbo.collection("dungeon").findOne({name: newaction})
+                        .then(newroom => {
+                            console.log(newroom)
+                            
+                            io.emit('changeclass', newroom)
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                }
+            })
         }
         io.emit('move action', msg)
     })
@@ -85,13 +101,10 @@ app.get('/main', (req, res) => {
                     .then(params => {
                         let wallx = (898-params.width*40)/2
                         let wally = (338-params.height*40)/2
-                        let doorx = wallx+params.door[0].x*40-7
-                        let doory = wally+params.door[0].y*40-12
                         for (let i = 0; i<params.door.length; i++) {
                             params.door[i].x = wallx + params.door[i].x*40-7
                             params.door[i].y = wally + params.door[i].y*40-12
                         }
-                        console.log(params.door[0].x)
                         let dungeon = {
                             height: params.height*40,
                             width: params.width*40,
