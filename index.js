@@ -22,7 +22,7 @@ io.on('connection', function(socket) {
     })
 
     socket.on('take turn', function(newaction) {
-        console.log(newaction)
+        //console.log(newaction)
         let msg = {message: "You have moved in a circle"}
         if (newaction.action[0] == 'm') {
             console.log('rollin rollin rollin keep them doggies rollin')
@@ -35,8 +35,20 @@ io.on('connection', function(socket) {
                     dbo.collection("dungeon").findOne({name: newaction})
                         .then(newroom => {
                             console.log(newroom)
-                            
-                            io.emit('changeclass', newroom)
+                            let wallx = (898-newroom.width*40)/2
+                            let wally = (338-newroom.height*40)/2
+                            for (let i = 0; i<newroom.door.length; i++) {
+                                newroom.door[i].x = wallx + newroom.door[i].x*40-7
+                                newroom.door[i].y = wally + newroom.door[i].y*40-12
+                            }
+                            let dungeon = {
+                                height: newroom.height*40,
+                                width: newroom.width*40,
+                                wallx: wallx,
+                                wally: wally,
+                                params: newroom
+                            }
+                            io.emit('move action', dungeon)
                         })
                         .catch(err => {
                             console.log(err)
@@ -44,7 +56,7 @@ io.on('connection', function(socket) {
                 }
             })
         }
-        io.emit('move action', msg)
+        //io.emit('move action', msg)
     })
 
     socket.on('changeclass', function(newclass) {

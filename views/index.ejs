@@ -23,7 +23,23 @@
                 $('#messages').prepend($('<li>').text(msg.sender + ": " + msg.message))
             })
             socket.on('move action', function(msg) {
-                $('#messages').prepend($('<li>').text(msg.message))
+                console.log(msg)
+                $('#drawing').attr('height', msg.height)
+                $('#drawing').attr('width', msg.width)
+                $('#drawing').attr('x', msg.wallx)
+                $('#drawing').attr('y', msg.wally)
+                $('[id^=door]').remove()
+                for (let i = 0; i < msg.params.door.length; i++) {
+                    $('#room').append('<rect id="door'+i+'" />')
+                    $('#door'+i).attr('x', msg.params.door[i].x)
+                    $('#door'+i).attr('y', msg.params.door[i].y+20)
+                    $('#door'+i).attr('width', 12)
+                    $('#door'+i).attr('height', 24)
+                    $('#door'+i).attr('style', "fill:#555555")
+                    $('#taketurn').append('<input type="radio" name="action" value="m'+msg.params.door[i].to+'">Move to '+msg.params.door[i].to+'<br>')
+                }
+                $('#room').html(function(){return this.innerHTML})
+                $('#messages').prepend($('<li>').text('win win win'))
             })
         })
     </script>
@@ -42,7 +58,7 @@
                 style="fill:black;"
             />
             <% for (var j in dungeon.params.door) { %>
-                <rect id="door"+j x="<%= dungeon.params.door[j].x %>" y="<%= dungeon.params.door[j].y %>"
+                <rect id="door<%= j %>" x="<%= dungeon.params.door[j].x %>" y="<%= dungeon.params.door[j].y %>"
                     width="12" height="24" style="fill:#555555"
                 />
             <% } %>
