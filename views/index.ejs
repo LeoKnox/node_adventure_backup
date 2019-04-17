@@ -29,6 +29,7 @@
                 $('#drawing').attr('x', msg.wallx)
                 $('#drawing').attr('y', msg.wally)
                 $('[id^=door]').remove()
+                $('#exits').empty()
                 for (let i = 0; i < msg.params.door.length; i++) {
                     $('#room').append('<rect id="door'+i+'" />')
                     $('#door'+i).attr('x', msg.params.door[i].x)
@@ -36,7 +37,7 @@
                     $('#door'+i).attr('width', 12)
                     $('#door'+i).attr('height', 24)
                     $('#door'+i).attr('style', "fill:#555555")
-                    $('#taketurn').append('<input type="radio" name="action" value="m'+msg.params.door[i].to+'">Move to '+msg.params.door[i].to+'<br>')
+                    $('#exits').append('<input type="radio" name="action" value="m'+msg.params.door[i].to+'">Move to '+msg.params.door[i].to+'<br>')
                 }
                 $('#room').html(function(){return this.innerHTML})
                 $('#messages').prepend($('<li>').text('win win win'))
@@ -101,10 +102,12 @@
                 <input type="radio" name="action" value="magic">Magic<br>
                 <input type="radio" name="action" value="block">Block<br>
                 <input type="radio" name="action" value="panic">Panic<br>
-                <% for (var k in dungeon.params.door) { %>
-                    <input type="radio" name="action" value="m<%= dungeon.params.door[k].to %>">
-                    Move to <%= dungeon.params.door[k].to %><br>
-                <% } %>
+                <div id="exits">
+                    <% for (var k in dungeon.params.door) { %>
+                        <input type="radio" name="action" value="m<%= dungeon.params.door[k].to %>">
+                        Move to <%= dungeon.params.door[k].to %><br>
+                    <% } %>
+                </div>
                 <button>Take Turn</button>
             </form>
         </div>
