@@ -103,6 +103,10 @@ app.post('/new', (req, res) => {
     res.redirect('/main')
 })
 
+app.get('/third', (req, res) => {
+    res.render('third')
+})
+
 app.get('/main', (req, res) => {
     MongoClient.connect(url, function(err, db){
             if (err) {

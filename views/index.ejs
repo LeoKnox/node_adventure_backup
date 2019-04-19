@@ -40,7 +40,7 @@
                     $('#exits').append('<input type="radio" name="action" value="m'+msg.params.door[i].to+'">Move to '+msg.params.door[i].to+'<br>')
                 }
                 $('#room').html(function(){return this.innerHTML})
-                $('#messages').prepend($('<li>').text('win win win'))
+                $('#messages').prepend($('<li>').text('You have moved to '+msg.params.name))
             })
         })
     </script>
