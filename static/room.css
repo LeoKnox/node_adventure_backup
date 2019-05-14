@@ -1,0 +1,56 @@
+.wrap {
+  perspective: 300px;
+  perspective-origin: 50% 100px;
+}
+
+.cube {
+  position: relative;
+  width: 200px;
+  transform-style: preserve-3d;
+}
+
+.cube div {
+  position: absolute;
+  width: 600px;
+  height: 200px;
+}
+
+.cube .door {
+  width: 50px;
+  height: 125px;
+  background-color: green;
+  transform: rotateY(180deg) translateY(75px) translateX(-50px);
+}
+
+.back {
+  background-color:red;
+  transform: translateZ(-100px) rotateY(180deg);
+}
+
+.cube .right {
+  background-color: red;
+  width: 600px;
+  transform: rotateY(-270deg) translateX(100px);
+  transform-origin: top right;
+}
+
+.left {
+  background-color: darkred;
+  transform: rotateY(270deg) translateX(-100px);
+  transform-origin: center left;
+}
+
+.top {
+  transform: rotateX(-90deg) translateY(-100px);
+  transform-origin: top center;
+}
+
+.bottom {
+  background-color: blue;
+  transform: rotateX(90deg) translateY(100px);
+  transform-origin: bottom center;
+}
+
+.front {
+  transform: translateZ(100px);
+}
