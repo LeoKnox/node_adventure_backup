@@ -76,6 +76,7 @@ button {
     width: 300px;
     height: 200px;
     perspective: 300px;
+    padding: 5% 15%;
 }
 
 .box {
@@ -83,7 +84,8 @@ button {
     height: 300px;
     position: relative;
     transform-style: preserve-3d;
-    transform: translateZ(-50px);
+    transform: rotateX(-35deg) translateZ(-50px) translateY(50px);
+    /* ^^ above transforms are camera position */
 }
 
 .box__face {
@@ -91,28 +93,27 @@ button {
 }
 
 .box__face--floor { transform: rotateX(-90deg) translateZ(100px);}
-.box__face--back { transform: rotateY(180deg) translateZ(0px);}
+.box__face--back { transform: rotateY(180deg) translateZ(50px);}
 
-.box__face--right {transform: rotateY(90deg) translateZ(150px);}
-.box__face--left {transform: rotateY(-90deg) translateZ(150px);}
+.box__face--right {transform: rotateY(90deg) translateZ(250px);}
+.box__face--left {transform: rotateY(-90deg) translateZ(50px);}
 
-.box.show-back {transform: translateZ(-50px) rotateY(-180deg);}
+/*.box.show-back {transform: translateZ(-50px) rotateY(-180deg);}
 .box.show-floor {transform: translateZ(-100px) rotateY(90deg);}
 .box.show-left {transform: translateZ(-150px) rotateY(90deg);}
-.box.show-right {transform: translateZ(-150px) rotateY(-90deg);}
+.box.show-right {transform: translateZ(-150px) rotateY(-90deg);}*/
 
 .box__face--right,
 .box__face--left {
     width: 100px;
     height: 200px;
-    left: 100px;
-    background-image: url("wall.jpg");
+    background-image: url("wall.png");
 }
 
 .box__face--back {
     width: 300px;
     height: 200px;
-    background-image: url("wall.jpg");
+    background-image: url("wall.png");
 }
 
 .box__face--floor {
@@ -120,10 +121,5 @@ button {
     height: 100px;
     transform: rotateX(-90deg) translateZ(100px);
     top: 50px;
-    background-image: url("floor.png");
-}
-
-#drawingx {
-    transform: perspective(300px) rotateX(70deg) translateX(20px);
     background-image: url("floor.png");
 }
