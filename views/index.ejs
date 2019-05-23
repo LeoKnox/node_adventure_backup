@@ -24,6 +24,8 @@
             })
             socket.on('move action', function(msg) {
                 console.log(msg)
+                $('.box__face--right').attr('width', '400')
+                $('.box__face--right').attr('height', '400')
                 $('#drawing').attr('height', msg.height)
                 $('#drawing').attr('width', msg.width)
                 $('#drawing').attr('x', msg.wallx)
@@ -37,8 +39,10 @@
                     $('#door'+i).attr('width', 12)
                     $('#door'+i).attr('height', 24)
                     $('#door'+i).attr('style', "fill:#555555")
-                    $('#exits').append('<input type="radio" name="action" value="m'+msg.params.door[i].to+'">Move to '+msg.params.door[i].to+'<br>')
+                    $('#exits').append('<input type="radio" name="action" value="m'+
+                        msg.params.door[i].to+'">Move to '+msg.params.door[i].to+'<br>')
                 }
+                $('.box__face--right').html(function(){return this.innerHTML})
                 $('#room').html(function(){return this.innerHTML})
                 $('#messages').prepend($('<li>').text('You have moved to '+msg.params.name))
             })
@@ -54,9 +58,16 @@
     <div id="map">
             <div class="scene">
                 <div class="box">
-                    <div class="box__face box__face--back">back</div>
-                    <div class="box__face box__face--floor">floor</div>
-                    <div class="box__face box__face--right">right</div>
+                    <div class="box__face box__face--back"
+                        style="width:<%= dungeon.params.width*60 %>px
+                        ">back</div>
+                    <div class="box__face box__face--floor"
+                        style="height:<%= dungeon.params.height*60 %>px;
+                        width:<%= dungeon.params.width*60 %>px
+                        ">floor</div>
+                    <div class="box__face box__face--right"
+                        style="width:<%= dungeon.params.height*60 %>px
+                        ">right</div>
                     <div class="box__face box__face--left">left</div>
                 </div>
             </div>
@@ -67,7 +78,8 @@
                 style="fill:black;"
             />
             <% for (var j in dungeon.params.door) { %>
-                <rect id="door<%= j %>" x="<%= dungeon.params.door[j].x %>" y="<%= dungeon.params.door[j].y %>"
+                <rect id="door<%= j %>" x="<%= dungeon.params.door[j].x %>"
+                    y="<%= dungeon.params.door[j].y %>"
                     width="12" height="24" style="fill:#555555"
                 />
             <% } %>
