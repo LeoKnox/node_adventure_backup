@@ -1,25 +1,144 @@
-const http = require('http');
-const path = require('path');
-const express = require('express');
-const app = express();
+const express = require('express')
+const app = express()
+const bodyParser = require('body-parser')
+const session = require('express-session')
+const http = require('http').Server(app)
+const io = require('socket.io')(http)
+const Adventurer = require('./adventurer.js')
+const Dungeon = require('./dungeon.js')
+const MongoClient = require('mongodb').MongoClient
+const url = "mongodb://localhost:27017/"
+const path = require('path')
 
-const hostname = '127.0.0.1';
-const port = 3000;
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(express.static(path.join(__dirname, './static')))
+app.set('views', path.join(__dirname, './views'))
+app.set('view engine', 'ejs')
+app.use(session({secret: "be very quiet"}))
 
-app.set('views', path.join(__dirname, './views'));
-app.use(express.static(path.join(__dirname, './static')));
-app.set('view engine', 'ejs');
+io.on('connection', function(socket) {
+    socket.on('chat message', function(msg) {
+        io.emit('chat message', msg)
+    })
 
-/*const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end(index);
-});*/
+    socket.on('take turn', function(newaction) {
+        //console.log(newaction)
+        let msg = {message: "You have moved in a circle"}
+        if (newaction.action[0] == 'm') {
+            console.log('rollin rollin rollin keep them doggies rollin')
+            newaction = newaction.action.slice(1)
+            MongoClient.connect(url, function(err, db){
+                if (err) {
+                    console.log(err)
+                } else {
+                    var dbo = db.db("node_adventure")
+                    dbo.collection("dungeon").findOne({name: newaction})
+                        .then(newroom => {
+                            console.log(newroom)
+                            let wallx = (898-newroom.width*40)/2
+                            let wally = (338-newroom.height*40)/2
+                            for (let i = 0; i<newroom.door.length; i++) {
+                                newroom.door[i].x = wallx + newroom.door[i].x*40-7
+                                newroom.door[i].y = wally + newroom.door[i].y*40-12
+                            }
+                            let dungeon = {
+                                height: newroom.height*40,
+                                width: newroom.width*40,
+                                wallx: wallx,
+                                wally: wally,
+                                params: newroom
+                            }
+                            io.emit('move action', dungeon)
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                }
+            })
+        }
+        //io.emit('move action', msg)
+    })
 
-app.get('/', function (req, res) {
-    res.render('index');
+    socket.on('changeclass', function(newclass) {
+        let newstats = {name: "", atk:"99", def:"99", hp:"99", mgc:"99", classes:"99"}
+        MongoClient.connect(url, function(err, db){
+            if (err) {
+                console.log(err)
+            } else {
+                var dbo = db.db("node_adventure")
+                dbo.collection("classes").findOne({classes: newclass})
+                    .then(newstats => {
+                        io.emit('changeclass', newstats)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
+        })
+    })
 })
 
-app.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}":${port}/`);
+app.get('/', (req, res) => {
+    MongoClient.connect(url, function(err, db){
+        if (err) {
+            console.log(err)
+        } else {
+            var dbo = db.db("node_adventure")
+            dbo.collection("classes").find({}).toArray(function(err, stats) {
+                res.render('login', {char:stats})
+            })
+        }
+    })
+})
+
+app.post('/login', (req, res) => {
+    req.session.user = req.body
+    console.log(req.body.name)
+    res.redirect('/main')
+})
+
+app.post('/new', (req, res) => {
+    let x = new Adventurer(req.session.user)
+    console.log(x[req.body.action]())
+    res.redirect('/main')
+})
+
+app.get('/third', (req, res) => {
+    res.render('third')
+})
+
+app.get('/main', (req, res) => {
+    MongoClient.connect(url, function(err, db){
+            if (err) {
+                console.log(err)
+            } else {
+                var dbo = db.db("node_adventure")
+                dbo.collection("dungeon").findOne({name: "Begin"})
+                    .then(params => {
+                        let wallx = (898-params.width*40)/2
+                        let wally = (338-params.height*40)/2
+                        for (let i = 0; i<params.door.length; i++) {
+                            params.door[i].x = wallx + params.door[i].x*40-7
+                            params.door[i].y = wally + params.door[i].y*40-12
+                        }
+                        let dungeon = {
+                            height: params.height*40,
+                            width: params.width*40,
+                            wallx: wallx,
+                            wally: wally,
+                            params: params
+                        }
+                        res.render('index', {user: req.session.user, dungeon})
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
+    })
+    //let dungeon = {height: 200, width: 440}
+    //res.render('index', {user: req.session.user, dungeon})
+})
+
+http.listen(3000, function() {
+    console.log('listening on port 3000')
 })
