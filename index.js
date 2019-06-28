@@ -32,7 +32,6 @@ io.on('connection', function(socket) {
                     var dbo = db.db("node_adventure")
                     dbo.collection("dungeon").findOne({name: newaction})
                         .then(newroom => {
-                            console.log(newroom)
                             let wallx = (898-newroom.width*40)/2
                             let wally = (338-newroom.height*40)/2
                             for (let i = 0; i<newroom.door.length; i++) {
