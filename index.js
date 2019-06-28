@@ -22,10 +22,8 @@ io.on('connection', function(socket) {
     })
 
     socket.on('take turn', function(newaction) {
-        //console.log(newaction)
         let msg = {message: "You have moved in a circle"}
         if (newaction.action[0] == 'm') {
-            console.log('rollin rollin rollin keep them doggies rollin')
             newaction = newaction.action.slice(1)
             MongoClient.connect(url, function(err, db){
                 if (err) {
@@ -56,7 +54,6 @@ io.on('connection', function(socket) {
                 }
             })
         }
-        //io.emit('move action', msg)
     })
 
     socket.on('changeclass', function(newclass) {
@@ -93,13 +90,11 @@ app.get('/', (req, res) => {
 
 app.post('/login', (req, res) => {
     req.session.user = req.body
-    console.log(req.body.name)
     res.redirect('/main')
 })
 
 app.post('/new', (req, res) => {
     let x = new Adventurer(req.session.user)
-    console.log(x[req.body.action]())
     res.redirect('/main')
 })
 
@@ -135,8 +130,6 @@ app.get('/main', (req, res) => {
                     })
             }
     })
-    //let dungeon = {height: 200, width: 440}
-    //res.render('index', {user: req.session.user, dungeon})
 })
 
 http.listen(3000, function() {
