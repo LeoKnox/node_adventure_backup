@@ -1,0 +1,2 @@
+{"_id":{"$oid":"5cada4b231c5210c80272472"},"adventurer":"","atk":"13","def":"15","hp":"41","mgc":"9","classes":"Fighter"}
+{"_id":{"$oid":"5caef5718f32b708fbf80bab"},"adventurer":"","atk":"16","def":"14","hp":"30","mgc":"10","classes":"Rogue"}

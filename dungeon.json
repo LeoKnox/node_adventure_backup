@@ -1,0 +1,3 @@
+{"_id":{"$oid":"5cb30765d661811331bbc78b"},"name":"Begin","height":6.0,"width":5.0,"door":[{"x":5.0,"y":1.0,"to":"Hall"}]}
+{"_id":{"$oid":"5cb66236dcd186cfa76faa32"},"name":"Hall","height":1.0,"width":6.0,"door":[{"x":0.0,"y":0.0,"to":"Begin"},{"x":6.0,"y":0.0,"to":"Lair"}]}
+{"_id":{"$oid":"5cb7b71937cd45c8cb59e3b1"},"name":"Lair","height":3.0,"width":7.0,"door":[{"x":0.0,"y":1.0,"to":"Hall"}]}

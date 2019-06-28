@@ -56,7 +56,7 @@
     <div id="grid_css">
     <div id="chat">
     <div id="map">
-            /* <div class="scene">
+            <div class="scene">
                 <div class="box">
                     <div class="box__face box__face--back"
                         style="width:<%= dungeon.params.width*60 %>px
@@ -70,7 +70,7 @@
                         ">right</div>
                     <div class="box__face box__face--left">left</div>
                 </div>
-            </div> */
+            </div>
         <svg id="room" >
             <rect id="drawing" x="<%= dungeon.wallx %>" y="<%= dungeon.wally %>"
                 width = "<%= dungeon.width %>" height="<%= dungeon.height %>"
@@ -121,7 +121,7 @@
                 <input type="radio" name="action" value="melee">Melee<br>
                 <input type="radio" name="action" value="magic">Magic<br>
                 <input type="radio" name="action" value="block">Block<br>
-                <input type="radio" name="action" value="panic">Panic!<br>
+                <input type="radio" name="action" value="panic">Panic<br>
                 <div id="exits">
                     <% for (var k in dungeon.params.door) { %>
                         <input type="radio" name="action" value="m<%= dungeon.params.door[k].to %>">
@@ -132,7 +132,7 @@
             </form>
         </div>
         <div id="monster">
-            <h3>Evil Mob</h3>
+            <h3>Evil Elmo</h3>
             <p>HP: 300</p>
             <svg width="10%" height="20%">
                 <line x1="15" y1="0" x2="15" y2="200" style="stroke:rgb(255,0,0);
