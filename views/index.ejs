@@ -8,7 +8,8 @@
             $('#taketurn').submit(function(t) {
                 t.preventDefault();
                 var charaction = $('input[name="action"]:checked').val()
-                socket.emit('take turn', {action: charaction})
+                var xchar = x
+                socket.emit('take turn', {action: charaction, char: xchar})
                 $('input[name="action"]').prop('checked', false)
                 return false
             })
@@ -40,7 +41,7 @@
                         msg.params.door[i].to+'">Move to '+msg.params.door[i].to+'<br>')
                 }
                 $('#room').html(function(){return this.innerHTML})
-                $('#messages').prepend($('<li>').text('You have moved to '+msg.params.name))
+                $('#messages').prepend($('<li>').text(msg.char+' has moved to '+msg.params.name))
             })
         })
     </script>
@@ -76,7 +77,7 @@
     </div>
     <div id="characters">
         <div id="stats">
-            <h3><%= user.adventurer %> vs</h3>
+            <h3 id="charName"><%= user.adventurer %></h3>
             <table>
                 <th>
                     <tr>

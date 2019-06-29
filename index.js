@@ -24,6 +24,7 @@ io.on('connection', function(socket) {
     socket.on('take turn', function(newaction) {
         let msg = {message: "You have moved in a circle"}
         if (newaction.action[0] == 'm') {
+            char = newaction.char
             newaction = newaction.action.slice(1)
             MongoClient.connect(url, function(err, db){
                 if (err) {
@@ -43,7 +44,8 @@ io.on('connection', function(socket) {
                                 width: newroom.width*40,
                                 wallx: wallx,
                                 wally: wally,
-                                params: newroom
+                                params: newroom,
+                                char: char
                             }
                             io.emit('move action', dungeon)
                         })
